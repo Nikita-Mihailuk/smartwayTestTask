@@ -9,3 +9,9 @@ tasks:
       MIGRATIONS_PATH: "./migrations"
       MIGRATIONS_TABLE: "migrations"
       DB_URL: "postgres:00000000@localhost:5432/smartwayTestTask"
+  run:
+    desc: "run application"
+    cmds:
+      - go run cmd/employee_service/main.go --config={{.CONFIG_PATH}}
+    vars:
+      CONFIG_PATH: "config/local.yml"
