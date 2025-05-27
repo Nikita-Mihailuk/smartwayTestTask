@@ -1,0 +1,11 @@
+version: "3"
+
+tasks:
+  migrate-up:
+    desc: "applied migrations"
+    cmds:
+      - go run ./cmd/migrator --migrations-path={{.MIGRATIONS_PATH}} --migrations-table={{.MIGRATIONS_TABLE}} --db-url={{.DB_URL}}
+    vars:
+      MIGRATIONS_PATH: "./migrations"
+      MIGRATIONS_TABLE: "migrations"
+      DB_URL: "postgres:00000000@localhost:5432/smartwayTestTask"

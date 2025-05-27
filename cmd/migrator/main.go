@@ -4,31 +4,22 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"github.com/Nikita-Mihailuk/smartwayTestTask/internal/config"
 	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
 func main() {
-	var migrationsPath, migrationsTable string
+	var migrationsPath, migrationsTable, dbURL string
 
 	flag.StringVar(&migrationsPath, "migrations-path", "", "path to migrations directory")
 	flag.StringVar(&migrationsTable, "migrations-table", "migrations", "name for migrations table")
+	flag.StringVar(&dbURL, "db-url", "", "url for database connection")
 	flag.Parse()
 
 	if migrationsPath == "" {
 		panic("migrations-path is required")
 	}
-
-	cfg := config.GetConfig()
-	dbURL := fmt.Sprintf("%s:%s@%s:%s/%s",
-		cfg.DB.Username,
-		cfg.DB.Password,
-		cfg.DB.Host,
-		cfg.DB.Port,
-		cfg.DB.Name,
-	)
 
 	m, err := migrate.New(
 		"file://"+migrationsPath,
