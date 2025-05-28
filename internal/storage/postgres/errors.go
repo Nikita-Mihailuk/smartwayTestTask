@@ -9,5 +9,5 @@ var (
 	ErrEmployeesNotFound  = errors.New("employees not found")
 	ErrCompanyNotFound    = errors.New("company not found")
 	ErrDepartmentNotFound = errors.New("department not found")
-	ErrPassportNotFound   = errors.New("passport not found")
+	ErrEmployeeNotFound   = errors.New("employee not found")
 )

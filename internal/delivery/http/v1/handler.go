@@ -2,6 +2,7 @@ package v1
 
 import (
 	"context"
+	"github.com/Nikita-Mihailuk/smartwayTestTask/internal/domain/dto"
 	"github.com/Nikita-Mihailuk/smartwayTestTask/internal/domain/model"
 	"github.com/gofiber/fiber/v3"
 )
@@ -21,7 +22,7 @@ type EmployeeService interface {
 	GetEmployeesByCompany(ctx context.Context, companyID int) ([]model.Employee, error)
 	GetEmployeeByDepartment(ctx context.Context, departmentID, companyID int) ([]model.Employee, error)
 	DropEmployee(ctx context.Context, id int) error
-	RefreshEmployee(ctx context.Context, employee model.Employee) error
+	RefreshEmployee(ctx context.Context, employee dto.UpdateEmployee) error
 }
 
 func (h *HandlerV1) InitRoutes(api fiber.Router) {

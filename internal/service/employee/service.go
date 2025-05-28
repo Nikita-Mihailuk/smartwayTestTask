@@ -2,6 +2,7 @@ package employee
 
 import (
 	"context"
+	"github.com/Nikita-Mihailuk/smartwayTestTask/internal/domain/dto"
 	"github.com/Nikita-Mihailuk/smartwayTestTask/internal/domain/model"
 	"go.uber.org/zap"
 )
@@ -44,5 +45,5 @@ type EmployeeDeleter interface {
 }
 
 type EmployeeUpdater interface {
-	UpdateEmployee(ctx context.Context, employee model.Employee) error
+	UpdateEmployee(ctx context.Context, employee dto.UpdateEmployee) error
 }

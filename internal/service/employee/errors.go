@@ -8,7 +8,7 @@ var (
 	ErrPassportExist                 = errors.New("passport already exists")
 	ErrEmployeesNotFoundByCompany    = errors.New("employees not found by company")
 	ErrEmployeesNotFoundByDepartment = errors.New("employees not found by department")
+	ErrEmployeeNotFoundByID          = errors.New("employee not found")
 	ErrInvalidCompany                = errors.New("invalid company")
 	ErrInvalidDepartment             = errors.New("invalid department")
-	ErrInvalidPassport               = errors.New("invalid passport")
 )
