@@ -8,6 +8,18 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
+// @Summary Create a new employee
+// @Description Create a new employee with all required information
+// @Tags V1
+// @Accept json
+// @Produce json
+// @Param employee body model.Employee true "Employee data"
+// @Success 201 {object} object "Returns created employee ID"
+// @Failure 400 {string} string "Invalid request data"
+// @Failure 404 {string} string "Company not found"
+// @Failure 409 {string} string "Employee or passport already exists"
+// @Failure 500 {string} string "Internal server error"
+// @Router /api/v1/employees [post]
 func (h *HandlerV1) createEmployee(ctx fiber.Ctx) error {
 	var employee model.Employee
 

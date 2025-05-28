@@ -7,6 +7,15 @@ import (
 	"strconv"
 )
 
+// @Summary Delete employee
+// @Description Delete employee by ID
+// @Tags V1
+// @Param id path int true "Employee ID"
+// @Success 204 "No content"
+// @Failure 400 {string} string "Invalid employee ID"
+// @Failure 404 {string} string "Employee not found"
+// @Failure 500 {string} string "Internal server error"
+// @Router /api/v1/employees/{id} [delete]
 func (h *HandlerV1) deleteEmployee(ctx fiber.Ctx) error {
 	employeeID, err := strconv.Atoi(ctx.Params("id"))
 	if err != nil {
