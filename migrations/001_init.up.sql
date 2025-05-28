@@ -5,8 +5,8 @@ CREATE TABLE IF NOT EXISTS companies (
 
 CREATE TABLE IF NOT EXISTS passports (
     id SERIAL PRIMARY KEY,
-    type VARCHAR(4) NOT NULL,
-    number VARCHAR(6) NOT NULL
+    type VARCHAR(10) NOT NULL,
+    number VARCHAR(10) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS departments (

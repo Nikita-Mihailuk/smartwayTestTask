@@ -289,9 +289,6 @@ const docTemplate = `{
                 "department_id": {
                     "type": "integer"
                 },
-                "id": {
-                    "type": "integer"
-                },
                 "name": {
                     "type": "string"
                 },
