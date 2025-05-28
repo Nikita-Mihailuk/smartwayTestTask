@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS passports (
 CREATE TABLE IF NOT EXISTS departments (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
-    phone VARCHAR(20) NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
     company_id INT REFERENCES companies(id)
 );
 
@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS employees (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     surname TEXT NOT NULL,
-    phone VARCHAR(20) NOT NULL,
+    phone VARCHAR(20) UNIQUE NOT NULL,
     company_id INT REFERENCES companies(id),
     passport_id INT UNIQUE REFERENCES passports(id),
     department_id INT REFERENCES departments(id)

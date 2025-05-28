@@ -1,7 +1,7 @@
 package model
 
 type Employee struct {
-	ID         int        `json:"id"`
+	ID         int        `json:"id,omitempty"`
 	Name       string     `json:"name"`
 	Surname    string     `json:"surname"`
 	Phone      string     `json:"phone"`
