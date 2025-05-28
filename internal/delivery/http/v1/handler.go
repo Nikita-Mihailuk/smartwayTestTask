@@ -29,3 +29,13 @@ func (h *HandlerV1) InitRoutes(api fiber.Router) {
 	v1 := api.Group("/v1")
 	h.RegisterEmployeeRouts(v1)
 }
+
+func (h *HandlerV1) RegisterEmployeeRouts(v1 fiber.Router) {
+	userGroup := v1.Group("/employees")
+
+	userGroup.Post("", h.createEmployee)
+	userGroup.Get("/company/:companyID/department/:departmentID", h.getEmployeeByDepartment)
+	userGroup.Get("/company/:companyID", h.getEmployeesByCompany)
+	userGroup.Patch("/:id", h.updateEmployee)
+	userGroup.Delete("/:id", h.deleteEmployee)
+}
