@@ -4,6 +4,9 @@ import (
 	"github.com/Nikita-Mihailuk/smartwayTestTask/internal/app"
 	"github.com/Nikita-Mihailuk/smartwayTestTask/internal/config"
 	"github.com/Nikita-Mihailuk/smartwayTestTask/pkg/logging"
+	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
@@ -11,5 +14,14 @@ func main() {
 	log := logging.GetLogger(cfg.Env)
 
 	application := app.NewApp(log, cfg)
-	application.HTTPServer.MustRun()
+	go application.HTTPServer.MustRun()
+
+	// Graceful shutdown
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, syscall.SIGINT, syscall.SIGTERM)
+
+	<-stop
+
+	application.HTTPServer.Stop()
+	log.Info("application stopped")
 }
