@@ -41,6 +41,9 @@ func (h *HandlerV1) createEmployee(ctx fiber.Ctx) error {
 		if errors.Is(err, service.ErrInvalidCompany) {
 			return fiber.NewError(fiber.StatusNotFound, "company with this id does not exist")
 		}
+		if errors.Is(err, service.ErrPassportExist) {
+			return fiber.NewError(fiber.StatusConflict, "this passport already exist")
+		}
 		return fiber.NewError(fiber.StatusInternalServerError, "internal error")
 	}
 

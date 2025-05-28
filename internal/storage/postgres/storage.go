@@ -25,15 +25,30 @@ func (s *Storage) SaveEmployee(ctx context.Context, employee model.Employee) (in
 		return 0, ErrCompanyNotFound
 	}
 
-	// вставляем паспорт и возвращаем id записи
+	// проверяем есть такой паспорт, если нет то вставляем новый и возвращаем id записи
+	queryFindPassport := ` SELECT EXISTS(SELECT 1 FROM passports WHERE number = $1 AND type = $2)`
+
+	err = tx.QueryRow(ctx,
+		queryFindPassport,
+		employee.Passport.Number,
+		employee.Passport.Type).
+		Scan(&exists)
+
+	if err != nil {
+		return 0, err
+	}
+	if exists {
+		return 0, ErrPassportExist
+	}
+
 	var passportID int
-	queryPassport := `
+	queryInsertPassport := `
 		INSERT INTO passports (type, number)
 		VALUES ($1, $2)
 		RETURNING id
 	`
 	err = tx.QueryRow(ctx,
-		queryPassport,
+		queryInsertPassport,
 		employee.Passport.Type,
 		employee.Passport.Number).
 		Scan(&passportID)

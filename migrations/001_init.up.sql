@@ -28,6 +28,7 @@ CREATE TABLE IF NOT EXISTS employees (
 
 CREATE INDEX ON employees(company_id);
 CREATE INDEX ON employees(department_id);
+CREATE INDEX ON passports(number,  type);
 
 INSERT INTO companies (name) VALUES
 ('TestCompany'),

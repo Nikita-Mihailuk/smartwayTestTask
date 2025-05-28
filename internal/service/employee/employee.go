@@ -23,6 +23,10 @@ func (s *EmployeeService) CreateEmployee(ctx context.Context, employee model.Emp
 			s.log.Error("department already exists", zap.Error(err))
 			return 0, ErrDepartmentExist
 		}
+		if errors.Is(err, postgres.ErrPassportExist) {
+			s.log.Error("passport already exists", zap.Error(err))
+			return 0, ErrPassportExist
+		}
 		s.log.Error("failed to save user", zap.Error(err))
 		return 0, err
 	}
