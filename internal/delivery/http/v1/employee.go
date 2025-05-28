@@ -36,8 +36,8 @@ func (h *HandlerV1) createEmployee(ctx fiber.Ctx) error {
 		if errors.Is(err, service.ErrEmployeeExist) {
 			return fiber.NewError(fiber.StatusConflict, "employee with number already exists")
 		}
-		if errors.Is(err, service.ErrDepartmentExist) {
-			return fiber.NewError(fiber.StatusConflict, "department with number already exists")
+		if errors.Is(err, service.ErrInvalidDepartment) {
+			return fiber.NewError(fiber.StatusConflict, "department with this id does not exist")
 		}
 		if errors.Is(err, service.ErrInvalidCompany) {
 			return fiber.NewError(fiber.StatusNotFound, "company with this id does not exist")

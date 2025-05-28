@@ -64,34 +64,18 @@ func (s *Storage) SaveEmployee(ctx context.Context, employee model.Employee) (in
 	var departmentID int
 	queryFindDepartment := `
 		SELECT id FROM departments
-		WHERE name = $1 AND phone = $2 AND company_id = $3
+		WHERE phone = $1 AND name = $2 AND company_id = $3
 	`
 	err = tx.QueryRow(ctx,
 		queryFindDepartment,
-		employee.Department.Name,
 		employee.Department.Phone,
+		employee.Department.Name,
 		employee.CompanyID).
 		Scan(&departmentID)
 
 	if err != nil {
-		queryInsertDepartment := `
-			INSERT INTO departments (name, phone, company_id)
-			VALUES ($1, $2, $3)
-			RETURNING id
-		`
-		err = tx.QueryRow(ctx,
-			queryInsertDepartment,
-			employee.Department.Name,
-			employee.Department.Phone,
-			employee.CompanyID).
-			Scan(&departmentID)
-
-		if err != nil {
-			var pgErr *pgconn.PgError
-			if errors.As(err, &pgErr) && pgErr.Code == pgerrcode.UniqueViolation {
-				return 0, ErrDepartmentExist
-			}
-			return 0, err
+		if errors.Is(err, pgx.ErrNoRows) {
+			return 0, ErrDepartmentNotFound
 		}
 	}
 

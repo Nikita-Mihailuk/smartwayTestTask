@@ -20,9 +20,9 @@ func (s *EmployeeService) CreateEmployee(ctx context.Context, employee model.Emp
 			s.log.Error("employee already exists", zap.Error(err))
 			return 0, ErrEmployeeExist
 		}
-		if errors.Is(err, postgres.ErrDepartmentExist) {
-			s.log.Error("department already exists", zap.Error(err))
-			return 0, ErrDepartmentExist
+		if errors.Is(err, postgres.ErrDepartmentNotFound) {
+			s.log.Error("department not found", zap.Error(err))
+			return 0, ErrInvalidDepartment
 		}
 		if errors.Is(err, postgres.ErrPassportExist) {
 			s.log.Error("passport already exists", zap.Error(err))
